@@ -10,7 +10,7 @@ shinyServer(function(input, output) {
   
  
   output$Macroplot2 <- renderHighchart({
-    inputname<-input$name
+    inputname<-input$namee
     #h
     hc<-highchart() %>% 
       hc_chart(animation = FALSE) %>% 
@@ -29,7 +29,7 @@ shinyServer(function(input, output) {
           #labels = list(format = "{value} &#176;C", useHTML = TRUE)
         ),
         list(
-          title = list(text = input$name),
+          title = list(text = inputname),
           align = "right",
           showFirstLabel = FALSE,
           showLastLabel = FALSE,
@@ -54,7 +54,7 @@ shinyServer(function(input, output) {
                         console.log(this.series)
                         
                         window.data = _.map(this.series.data, function(e) { return e.y })
-                        if(this.series.name==$('#inputname').val()){Shiny.onInputChange('line1', data)}
+                        if(this.series.name==document.getElementById('namee').value){Shiny.onInputChange('line1', data)}
                         else {Shiny.onInputChange('line2', data)}
 }"))
               ))) %>% 

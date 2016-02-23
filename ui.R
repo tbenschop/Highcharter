@@ -19,7 +19,7 @@ shinyUI(fluidPage(
     
     # Show a plot of the generated distribution
     mainPanel(
-      selectInput("name",label = "name",choices = c("one","two"),selected = "one"),
+      selectInput("namee",label = "namee",choices = c("one","two"),selected = "one"),
       # plotOutput("distPlot"),
       highchartOutput("Macroplot2")
       ,dataTableOutput('table')
