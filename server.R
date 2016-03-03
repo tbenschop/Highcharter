@@ -18,8 +18,10 @@ shinyServer(function(input, output) {
     y<-FALSE
     x<-FALSE
     y<-FALSE
-    if(!is.null(input$dropdown_change1)) x<-(input$dropdown_change1!=input$changed_series_drag1)   
-    if(!is.null(input$dropdown_change2)) y<-(input$dropdown_change2!=input$changed_series_drag2)
+    drag1 <- if(is.null(input$changed_series_drag1)&!is.null(input$dropdown_change1)) drag1<-input$dropdown_change1 else drag1<-input$changed_series_drag1
+    drag2 <- if(is.null(input$changed_series_drag2)&!is.null(input$dropdown_change2)) drag2<-input$dropdown_change2 else drag2<-input$changed_series_drag2
+    if(!is.null(input$dropdown_change1)) x<-(input$dropdown_change1!=drag1)   
+    if(!is.null(input$dropdown_change2)) y<-(input$dropdown_change2!=drag2)
     
     if(is.null(input$timeseries1)|x)var1<-c(7.0, 6.9, 9.5, 14.5, 18.2) else var1<-input$timeseries1
     if(is.null(input$timeseries2)|y)var2<-c(24.5, 18.2, 21.5, 25.2, 26.5)else var2<-input$timeseries2
@@ -63,18 +65,18 @@ shinyServer(function(input, output) {
           events=list(
             afterAnimate = JS("function(){
 
-$(document).on('change', 'input.shiny-bound-input, select.shiny-bound-input', function(e){
-	 $target = $(e.target)
+    $(document).on('change', 'input.shiny-bound-input, select.shiny-bound-input', function(e){
+    	 $target = $(e.target)
                               
                               console.log($target.val());
              if($target.val().substring(0,1)=='1'){ 
-Shiny.onInputChange('dropdown_change1', $target.val())
+    Shiny.onInputChange('dropdown_change1', $target.val())
              }
              if($target.val().substring(0,1)=='2'){ 
-Shiny.onInputChange('dropdown_change2', $target.val())
+    Shiny.onInputChange('dropdown_change2', $target.val())
              }
-})
-console.log($target.val().substring(0,1)+'substring')
+    })
+    console.log($target.val().substring(0,1)+'substring')
             }
             ")
           ),
@@ -82,22 +84,22 @@ console.log($target.val().substring(0,1)+'substring')
           point = list(
             events = list(
               drop = JS("
-function(){
-window.data = _.map(this.series.data, function(e) { return e.y })
+    function(){
+    window.data = _.map(this.series.data, function(e) { return e.y })
 
              if(this.series.name.substring(0,1)=='2'){ 
-Shiny.onInputChange('timeseries2', data)
-}
+    Shiny.onInputChange('timeseries2', data)
+    }
 
              if(this.series.name.substring(0,1)=='1'){ 
-Shiny.onInputChange('timeseries1', data)
-}
+    Shiny.onInputChange('timeseries1', data)
+    }
              if(this.series.name.substring(0,1)=='1'){ 
-Shiny.onInputChange('changed_series_drag1', this.series.name)
-}
+    Shiny.onInputChange('changed_series_drag1', this.series.name)
+    }
              if(this.series.name.substring(0,1)=='2'){ 
-Shiny.onInputChange('changed_series_drag2', this.series.name)
-  }
+    Shiny.onInputChange('changed_series_drag2', this.series.name)
+      }
 }
 
 
@@ -138,9 +140,11 @@ Shiny.onInputChange('changed_series_drag2', this.series.name)
     
     x<-FALSE
     y<-FALSE
-    if(!is.null(input$dropdown_change1)) x<-(input$dropdown_change1!=input$changed_series_drag1)   
-    if(!is.null(input$dropdown_change2)) y<-(input$dropdown_change2!=input$changed_series_drag2)
- 
+    drag1 <- if(is.null(input$changed_series_drag1)&!is.null(input$dropdown_change1)) drag1<-input$dropdown_change1 else drag1<-input$changed_series_drag1
+    drag2 <- if(is.null(input$changed_series_drag2)&!is.null(input$dropdown_change2)) drag2<-input$dropdown_change2 else drag2<-input$changed_series_drag2
+    if(!is.null(input$dropdown_change1)) x<-(input$dropdown_change1!=drag1)   
+    if(!is.null(input$dropdown_change2)) y<-(input$dropdown_change2!=drag2)
+    
     if(is.null(input$timeseries1)|x)var1<-c(7.0, 6.9, 9.5, 14.5, 18.2) else var1<-input$timeseries1
     if(is.null(input$timeseries2)|y)var2<-c(24.5, 18.2, 21.5, 25.2, 26.5)else var2<-input$timeseries2
     print(x)
