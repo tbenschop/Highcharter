@@ -19,13 +19,9 @@ shinyUI(fluidPage(
     
     # Show a plot of the generated distribution
     mainPanel(
-    
-uiOutput('name1'),
-uiOutput('name2'),    
+   
   # plotOutput("distPlot"),
-      highchartOutput("Macroplot2",height = "300px")
-      ,dataTableOutput('table')
-,tableOutput('table2')
+      highchartOutput("HighchartPlot",height = "300px"),dataTableOutput('tableoutput')
     )
   )
 ))
